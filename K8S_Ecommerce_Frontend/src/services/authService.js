@@ -1,6 +1,10 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:30082/back1/auth";
+// ✅ Switch backend URL depending on environment
+const API_URL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:30083/back1/auth" // local dev (NodePort)
+    : "http://backend:8080/back1/auth";   // in-cluster K8s service
 
 export const login = async (username, password) => {
   const response = await axios.post(`${API_URL}/login`, { username, password });
